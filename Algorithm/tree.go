@@ -34,3 +34,7 @@ func (tree *Tree) PostOrderTraversal() {
 func (tree *Tree) InOrderTraversal() {
 	tree.Root.InOrderTraversal()
 }
+
+func (tree *Tree) FindMaxHeight() int {
+	return tree.Root.Height(0)
+}

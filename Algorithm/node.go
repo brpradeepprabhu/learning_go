@@ -1,6 +1,9 @@
 package Algorithm
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type Node struct {
 	Data  int
@@ -65,5 +68,18 @@ func (node *Node) InOrderTraversal() {
 	if node.Right != nil {
 		node.Right.InOrderTraversal()
 	}
+}
+
+func (node *Node) Height(h int) int {
+	leftHeight := h
+	if node.Left != nil {
+		leftHeight = node.Left.Height(h + 1)
+	}
+	rightHeight := h
+	if node.Right != nil {
+		rightHeight = node.Right.Height(h + 1)
+	}
+
+	return int(math.Max(float64(leftHeight), float64(rightHeight)))
 
 }
