@@ -53,3 +53,8 @@ func (tree *Tree) AddNode(data int) {
 func (tree *Tree) DeleteNode(data int) {
 	tree.Root = tree.Root.DeleteNode(data)
 }
+
+func (tree *Tree) Rebalance() {
+	tree.Root.Rebalance()
+	tree.Root = tree.Root.CheckImbalanceIfExists()
+}

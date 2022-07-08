@@ -175,7 +175,74 @@ func (node *Node) DeleteNode(target int) *Node {
 }
 
 func (node *Node) IsBalanced() bool {
-	leftHeight := node.Left.Height(0)
-	rightHeight := node.Right.Height(0)
+	leftHeight := 0
+	rightHeight := 0
+	if node.Left != nil {
+		leftHeight = node.Left.Height(0)
+	}
+	if node.Right != nil {
+		rightHeight = node.Right.Height(0)
+	}
 	return math.Abs(float64(leftHeight-rightHeight)) < 2
+}
+
+func (node *Node) getHeightDiff() int {
+	leftHeight := 0
+	rightHeight := 0
+	if node.Left != nil {
+		leftHeight = node.Left.Height(0)
+	}
+	if node.Right != nil {
+		rightHeight = node.Right.Height(0)
+	}
+	return leftHeight - rightHeight
+}
+
+func (node *Node) CheckImbalanceIfExists() *Node {
+	if node.getHeightDiff() > 1 {
+		if node.Left.getHeightDiff() > 0 {
+			return node.RotateRight(node)
+		} else {
+			node.Left = node.Left.RotateLeft(node.Left)
+			return node.RotateRight(node)
+
+		}
+
+	} else if node.getHeightDiff() < -1 {
+		if node.Right.getHeightDiff() < 0 {
+			return node.RotateLeft(node)
+		} else {
+			node.Right = node.Right.RotateRight(node.Right)
+			return node.RotateLeft(node)
+		}
+	}
+
+	return node
+}
+func (node *Node) Rebalance() *Node {
+	if node.Left != nil {
+		node.Left.Rebalance()
+		node.Left = node.Left.CheckImbalanceIfExists()
+	}
+	if node.Right != nil {
+		node.Right.Rebalance()
+		node.Right = node.Right.CheckImbalanceIfExists()
+	}
+	return node
+}
+
+func (node *Node) RotateRight(root *Node) *Node {
+	pivot := root.Left
+	reAttachNode := pivot.Right
+	root.Left = reAttachNode
+	pivot.Right = root
+	return pivot
+}
+
+func (node *Node) RotateLeft(root *Node) *Node {
+	pivot := root.Right
+	reAttachNode := pivot.Left
+	root.Right = reAttachNode
+	pivot.Left = root
+	return pivot
 }
