@@ -19,7 +19,7 @@ func main() {
 		node.Left = left
 	}
 	right, _ := Algorithm.NewNode(75, nil, nil)
-	if left != nil {
+	if right != nil {
 		node.Right = right
 	}
 
@@ -29,7 +29,7 @@ func main() {
 		node.Left.Left = left
 	}
 	right, _ = Algorithm.NewNode(35, nil, nil)
-	if left != nil {
+	if right != nil {
 		node.Left.Right = right
 	}
 	//third level level children for 10
@@ -37,15 +37,12 @@ func main() {
 	if left != nil {
 		node.Left.Left.Left = left
 	}
-	//fourth level  children for 2
-	left, _ = Algorithm.NewNode(2, nil, nil)
-	if left != nil {
-		node.Left.Left.Left.Left = left
-	}
+
 	right, _ = Algorithm.NewNode(13, nil, nil)
-	if left != nil {
+	if right != nil {
 		node.Left.Left.Right = right
 	}
+
 	//third level level children for 35
 
 	left, _ = Algorithm.NewNode(30, nil, nil)
@@ -53,8 +50,14 @@ func main() {
 		node.Left.Right.Left = left
 	}
 	right, _ = Algorithm.NewNode(42, nil, nil)
-	if left != nil {
+	if right != nil {
 		node.Left.Right.Right = right
+	}
+
+	//fourth level  children for 2
+	left, _ = Algorithm.NewNode(2, nil, nil)
+	if left != nil {
+		node.Left.Left.Left.Left = left
 	}
 	tree, err := Algorithm.NewTree(node, "Binary tree")
 	if err != nil {
@@ -68,5 +71,15 @@ func main() {
 	maxHeight := tree.FindMaxHeight()
 
 	fmt.Println("Max Height", maxHeight)
+
+	depthTree := tree.GetNodesAtDepth(3)
+
+	fmt.Println("Depth at level2", depthTree)
+
+	tree.AddNode(20)
+
+	tree.DeleteNode(10)
+
+	fmt.Println("Replaced Node", tree.Root.Left.Left)
 
 }

@@ -1,6 +1,8 @@
 package Algorithm
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Tree struct {
 	Root *Node
@@ -37,4 +39,17 @@ func (tree *Tree) InOrderTraversal() {
 
 func (tree *Tree) FindMaxHeight() int {
 	return tree.Root.Height(0)
+}
+
+func (tree *Tree) GetNodesAtDepth(depth int) []int {
+	nodes := []int{}
+	return tree.Root.GetNodeAtDepth(depth, &nodes)
+}
+
+func (tree *Tree) AddNode(data int) {
+	tree.Root.AddNode(data)
+}
+
+func (tree *Tree) DeleteNode(data int) {
+	tree.Root = tree.Root.DeleteNode(data)
 }
